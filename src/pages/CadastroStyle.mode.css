@@ -1,0 +1,247 @@
+/* ======== Layout Base ======== */
+.page-home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url(/public/images/bacgroundFc.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    color: #333;
+    padding: 20px;
+}
+
+.h1-page-container {
+    text-align: center;
+    position: absolute;
+    color: white;
+    top: 50px;
+    height: 20px;
+    font-size: 50px;
+}
+
+/* O "cartão" do formulário com dimensões fixas */
+.auth-home-card {
+    background-color: #f0efef;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 380px; /* Largura fixa */
+    height: 530px; /* Altura fixa */
+    text-align: center;
+    border: 1px solid #e0e0e0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribui o conteúdo uniformemente */
+    overflow: hidden; /* Adiciona scroll se o conteúdo for maior que a altura */
+}
+
+.auth-card:hover {
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #4a4a4a;
+    margin-bottom: 2rem;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.input-group {
+    text-align: left;
+    width: 350px;
+    height: 50px;
+}
+
+.input-label {
+    display: block;
+    height: 8px;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.input-field {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+}
+
+.message {
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    height: 53px;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.submit-button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.submit-button:disabled {
+    background-color: #b0b0b0;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.login-link {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.link-text {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.link-text:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* ======== Responsividade ======== */
+@media (max-width: 1024px) {
+  .auth-home-card {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .input-group {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-home-container {
+    padding: 15px;
+    background-size: cover;
+  }
+
+  .h1-page-container {
+    font-size: 40px;
+    top: 40px;
+  }
+
+  .auth-home-card {
+    width: 90%;
+    height: auto;
+  }
+
+  .input-group {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .h1-page-container {
+    font-size: 30px;
+    top: 30px;
+  }
+
+  .auth-home-card {
+    width: 95%;
+    height: auto;
+    padding: 15px;
+  }
+
+  .input-group {
+    width: 100%;
+  }
+
+  .submit-button {
+    padding: 14px;
+    font-size: 1rem;
+  }
+
+  .login-link {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .h1-page-container {
+    font-size: 25px;
+    top: 25px;
+  }
+
+  .auth-home-card {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .submit-button {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+
+  .login-link {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .h1-page-container {
+    font-size: 22px;
+    top: 20px;
+  }
+
+  .auth-home-card {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .submit-button {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .login-link {
+    font-size: 0.8rem;
+  }
+}

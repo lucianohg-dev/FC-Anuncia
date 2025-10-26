@@ -1,0 +1,178 @@
+/* Fundo geral */
+.remote-placa-page-wrapper {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url(/public/images/bacgroundFc.png);
+  background-repeat: no-repeat;
+  background-size:100% 100%;
+  background-position: center;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 10px;
+  box-sizing: border-box;
+}
+#bodyheader{
+    top: 0;
+    position: absolute;
+}
+.headerh1{
+ color: #ffffff;
+
+
+}
+/* Caixa central compacta */
+.placa-wrapper {
+  background: rgba(41, 40, 40, 0.75);
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 600px;   /* largura máxima */
+  width: 100%;        /* ocupa até 100% da tela */
+  max-height: 90vh;   /* nunca passa da altura da tela */
+  overflow-y: auto;   /* só o conteúdo rola */
+  box-shadow: 0 4px 12px rgba(2,0,0,0.5);
+}
+
+/* Cabeçalho */
+.placa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.placa-title {
+margin-left: 150px;
+  font-size: 1.4rem;
+  color: rgb(13, 146, 19);
+}
+.placa-cx{
+  background-color: #d8d8d8;
+}
+.placa-btn-close {
+  background: #c01111;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+/* Formulário */
+.placa-form {
+  margin-bottom: 15px;
+}
+
+.placa-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.placa-input-box {
+  display: flex;
+  gap: 8px;
+}
+
+.placa-input {
+  flex: 1;
+  height: 50px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #999;
+}
+
+.placa-btn-send {
+  background: rgb(13, 146, 19);
+  margin-top: 0px;
+ height: 50px;
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Lista de histórico */
+.placa-subtitle {
+  margin: 10px 0;
+  font-size: 1.1rem;
+  color: rgb(13, 146, 19);
+  text-align: center;
+}
+
+.placa-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 250px;   /* trava a altura da lista */
+  overflow-y: auto; 
+  color: #000000;   /* a lista rola dentro */
+
+}
+
+.placa-item {
+  background: rgba(0, 0, 0, 0.05);
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  background-color: #c2c2c2;
+}
+
+.placa-actions {
+  display: flex;
+  gap: 6px;
+}
+#placa-text{
+    color: rgb(0, 0, 0);
+}
+.placa-btn-play {
+  background: rgb(13, 146, 19);
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.placa-btn-delete {
+  background: #c01111;
+  border: none;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .placa-wrapper {
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  .placa-input-box {
+    flex-direction: column;
+  }
+
+  .placa-btn-send {
+    width: 100%;
+  }
+
+  .placa-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .placa-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,232 @@
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url(/public/images/bacgroundFc.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  font-family: "Segoe UI", "Roboto", sans-serif;
+  color: #333;
+  padding: 20px;
+}
+
+.h1-page-container {
+  text-align: center;
+  position: absolute;
+  top: 50px;
+  height: 20px;
+}
+
+/* O "cartão" do formulário com dimensões fixas */
+.auth-card {
+  background-color: #f0efef;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 380px;
+  height: 450px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Título principal do card */
+.card-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #4a4a4a;
+  margin-bottom: 2rem;
+}
+
+/* Formulário e espaçamento */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Grupo de input (label + input) */
+.input-group {
+  text-align: left;
+  width: 100%;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.input-field {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+}
+
+/* Mensagens de feedback */
+.message {
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Botão de envio */
+.submit-button {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #28a745;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: rgb(218, 8, 18);
+}
+
+.submit-button:disabled {
+  background-color: #b0b0b0;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Link para login */
+.cadastro-link {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #666;
+  text-align: center;
+}
+
+.link-text {
+  color: #28a745;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.link-text:hover {
+  color: rgb(218, 8, 18);
+  text-decoration: underline;
+}
+
+/* ======== Media Queries para Responsividade ======== */
+
+/* Telas menores que 480px (celulares) */
+@media (max-width: 480px) {
+  .auth-card {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .input-field {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .submit-button {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .h1-page-container {
+    font-size: 1.5rem;
+    top: 30px;
+  }
+}
+
+/* Telas entre 481px e 768px (tablets) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .auth-card {
+    width: 300px;
+    height: auto;
+    padding: 25px;
+  }
+
+  .card-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .input-field {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+
+  .submit-button {
+    padding: 14px;
+    font-size: 1.05rem;
+  }
+
+  .h1-page-container {
+    font-size: 1.8rem;
+    top: 40px;
+  }
+}
+
+/* Telas entre 769px e 1024px (pequenos laptops) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .auth-card {
+    width: 350px;
+    height: auto;
+    padding: 30px;
+  }
+
+  .card-title {
+    font-size: 2rem;
+  }
+
+  .input-field {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .submit-button {
+    padding: 15px;
+    font-size: 1.1rem;
+  }
+
+  .h1-page-container {
+    font-size: 2rem;
+    top: 45px;
+  }
+}

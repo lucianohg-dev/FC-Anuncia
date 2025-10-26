@@ -1,0 +1,213 @@
+/* ========================= */
+/* HEADER BASE */
+/* ========================= */
+#bodyheader {
+  margin-top: 0;
+  display: flex;
+  width: 100%;
+  height: 65px;
+  align-items: center;
+  justify-content: space-between;
+  background: rgb(13, 146, 19);
+  color: #ffffff;
+  padding: 12px 20px;
+  z-index: 100;
+}
+
+/* ======== USER INFO ======== */
+.user-info {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  top: 13px;
+  right: 60px;
+}
+
+.user-photo {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.user-name {
+  font-size: 1.2rem;
+  color: white;
+  font-weight: 500;
+}
+
+/* ======== TÍTULO CENTRAL ======== */
+.headerh1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: clamp(22px, 6vw, 50px);
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+
+/* ======== ÍCONE DE MENU ======== */
+.menu-icon {
+  position: absolute;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+  right: 20px;
+}
+
+.menu-icon:hover {
+  transform: scale(1.1);
+}
+
+/* ======== MENU DROPDOWN ======== */
+.menu-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+  display: none;
+  flex-direction: column;
+  width: 180px;
+  padding: 10px 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.menu-dropdown.open {
+  display: flex;
+}
+
+/* ======== LINKS ======== */
+.menu-link {
+  text-align: left;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #007a06;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+}
+
+.menu-link:hover {
+  background: #07740d;
+  color: #ffffff;
+}
+
+/* ======== ANIMAÇÃO ======== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ====================== 🔹 RESPONSIVIDADE ====================== */
+
+/* Telas até 900px */
+@media (max-width: 900px) {
+  .megafone-icon {
+    margin-left: 600px;
+  }
+}
+/* Tablets e telas médias (até 785px) */
+@media (max-width: 785px) {
+  .user-photo {
+  
+
+  display: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.user-name {
+  display: none;
+  font-size: 1.2rem;
+  color: white;
+  font-weight: 500;
+}
+
+}
+
+/* Tablets e telas médias (até 768px) */
+@media (max-width: 768px) {
+  .headerh1 {
+    font-size: 2rem;
+  }
+
+  .megafone-icon {
+    margin-left: 450px;
+  }
+
+  .user-info {
+    right: 40px;
+  }
+}
+
+/* Telas pequenas (até 600px) */
+@media (max-width: 600px) {
+  .headerh1 {
+    font-size: 1.3rem;
+  }
+
+  .menu-dropdown {
+    width: 160px;
+    right: 10px;
+  }
+
+  .megafone-icon {
+    margin-left: 280px;
+  }
+
+  .user-info {
+    right: 20px;
+  }
+
+  .user-photo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .user-name {
+    font-size: 1rem;
+  }
+}
+
+/* Telas pequenas (até 414px) */
+@media (max-width: 414px) {
+  .megafone-icon {
+    margin-left: 200px;
+  }
+
+  .user-name {
+    font-size: 0.9rem;
+  }
+}
+
+/* Telas pequenas (até 375px) */
+@media (max-width: 375px) {
+  .megafone-icon {
+    margin-left: 180px;
+  }
+}
+
+/* Telas muito pequenas (até 320px) */
+@media (max-width: 320px) {
+  .megafone-icon {
+    margin-left: 140px;
+  }
+}

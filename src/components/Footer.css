@@ -1,0 +1,93 @@
+/* ========================= */
+/* RODAPÉ FIXO PRINCIPAL */
+/* ========================= */
+#rodape {
+  position: fixed;
+  background: rgb(13, 146, 19);
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 30px;
+  line-height: 30px; /* centraliza verticalmente o texto */
+}
+
+/* Título interno do rodapé */
+.title-footer {
+  font-size: 20px;
+  height: 20px;
+  margin-top: 3px;
+}
+
+/* ========================= */
+/* RESPONSIVIDADE */
+/* ========================= */
+
+/* Celulares muito pequenos (até 360px) */
+@media (max-width: 360px) {
+  #rodape {
+    font-size: 12px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 5px;
+  }
+
+  .title-footer {
+    font-size: 12px;
+  }
+}
+
+/* iPhone SE / telas pequenas (até 375px) */
+@media (max-width: 375px) {
+  #rodape {
+    font-size: 13px;
+    height: 45px;
+    line-height: 45px;
+  }
+
+  .title-footer {
+    font-size: 13px;
+  }
+}
+
+/* Telas médias / iPhone Plus (até 414px) */
+@media (max-width: 414px) {
+  #rodape {
+    font-size: 14px;
+    height: 45px;
+    line-height: 45px;
+  }
+
+  .title-footer {
+    font-size: 14px;
+  }
+}
+
+/* Tablets pequenos e telas maiores (até 576px) */
+@media (max-width: 576px) {
+  #rodape {
+    font-size: 16px;
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .title-footer {
+    font-size: 16px;
+  }
+}
+
+/* Tablets grandes e desktops pequenos (até 768px) */
+@media (max-width: 768px) {
+  #rodape {
+    font-size: 18px;
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .title-footer {
+    font-size: 18px;
+  }
+}

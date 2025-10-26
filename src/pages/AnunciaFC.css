@@ -1,0 +1,116 @@
+/* ========================= */
+/* RESET E BOX-SIZING */
+/* ========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+/* ========================= */
+/* CONTAINER PRINCIPAL DA PÁGINA */
+/* ========================= */
+.bodypage {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column; /* header em cima, conteúdo no meio, footer embaixo */
+  justify-content: flex-start;
+  align-items: center;
+  background-image: url("/images/bacgroundFc.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ========================= */
+/* CONTAINER CENTRALIZADOR PARA O CONTEÚDO PRINCIPAL */
+/* ========================= */
+.main-content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  padding: 10px;
+  overflow: hidden;
+}
+
+/* ========================= */
+/* CONTEÚDO PRINCIPAL (CARDS, CAIXAS, ETC.) */
+/* ========================= */
+.main-content {
+  margin-top: 120px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  max-height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+}
+
+/* ========================= */
+/* SCROLL PERSONALIZADO */
+/* ========================= */
+.main-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.3);
+  border-radius: 3px;
+}
+
+.main-content::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.1);
+}
+
+/* ========================= */
+/* RESPONSIVIDADE */
+/* ========================= */
+
+/* Telas até 1024px */
+@media (max-width: 1024px) {
+  .main-content {
+    gap: 25px;
+    overflow: scroll;
+  }
+}
+
+/* Telas até 768px */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+/* Telas até 480px */
+@media (max-width: 480px) {
+  .main-content {
+    gap: 15px;
+  }
+}
+
+/* Telas até 375px */
+@media (max-width: 375px) {
+  .main-content {
+    gap: 10px;
+  }
+}
+
+/* Telas até 320px */
+@media (max-width: 320px) {
+  .main-content {
+    gap: 8px;
+  }
+}

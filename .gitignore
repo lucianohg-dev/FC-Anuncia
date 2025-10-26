@@ -1,0 +1,29 @@
+# Logs
+# Inclui arquivos de log de diferentes gerenciadores de pacotes
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Diretórios de Build e Dependências
+node_modules/
+dist/
+dist-ssr/
+build/
+
+# Arquivos de Configuração Sensíveis e Locais
+.env
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json  # Exceção: mantém o arquivo extensions.json do VSCode
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

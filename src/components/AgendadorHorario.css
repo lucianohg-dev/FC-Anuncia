@@ -1,0 +1,229 @@
+/* ========================= */
+/* CONTAINER PRINCIPAL */
+/* ========================= */
+.agendador-container {
+  width: 300px;
+  height: 700px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  /* Centraliza em telas grandes e pequenas */
+}
+
+/* ========================= */
+/* TÍTULOS */
+/* ========================= */
+.agendador-titulo {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(13, 146, 19);
+  margin-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+.subtitulo {
+  font-size: 16px;
+  margin-top: 15px;
+  color: rgb(13, 146, 19);
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 4px;
+}
+
+/* ========================= */
+/* FORMULÁRIO */
+/* ========================= */
+.form-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-time {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 16px;
+}
+
+.radio-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 14px;
+}
+
+/* ========================= */
+/* BOTÕES */
+/* ========================= */
+.btn-agendar {
+  background: rgb(13, 146, 19);
+  color: white;
+  border: none;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.btn-agendar:hover {
+  background: rgb(219, 17, 17);
+}
+
+.btn-remover {
+  background: rgb(219, 17, 17);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s ease;
+}
+
+.btn-remover:hover {
+  background: rgb(180, 10, 10);
+}
+
+/* ========================= */
+/* MENSAGENS E LISTAS */
+/* ========================= */
+.mensagem {
+  text-align: center;
+  font-size: 13px;
+  color: #444;
+  margin-top: 5px;
+  min-height: 20px;
+}
+
+.lista-agendamentos {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-top: 5px;
+  padding-right: 5px;
+}
+
+.lista-agendamentos::-webkit-scrollbar {
+  width: 6px;
+}
+
+.lista-agendamentos::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
+}
+
+.item-agendamento {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7f8fa;
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin-bottom: 6px;
+}
+
+.texto-item {
+  font-size: 14px;
+  color: #333;
+}
+
+/* ========================= */
+/* RESPONSIVIDADE */
+/* ========================= */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .agendador-container {
+    width: 90%;
+    height: auto;
+    max-width: 500px;
+  }
+
+  .agendador-titulo {
+    font-size: 20px;
+  }
+}
+
+/* Celulares grandes */
+@media (max-width: 768px) {
+  .agendador-container {
+    width: 90%;
+    height: auto;
+    padding: 16px;
+  }
+
+  .agendador-titulo {
+    font-size: 17px;
+  }
+
+  .input-time {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+  }
+
+  .btn-agendar {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .item-agendamento {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .texto-item {
+    font-size: 13px;
+  }
+
+  .btn-remover {
+    align-self: flex-end;
+    padding: 6px 10px;
+  }
+}
+
+/* Celulares pequenos */
+@media (max-width: 480px) {
+  .agendador-container {
+    width: 95%;
+    padding: 12px;
+  }
+
+  .agendador-titulo {
+    font-size: 16px;
+  }
+
+  .input-time {
+    font-size: 14px;
+  }
+
+  .btn-agendar {
+    font-size: 14px;
+  }
+
+  .subtitulo {
+    font-size: 15px;
+  }
+
+  .texto-item {
+    font-size: 12px;
+  }
+}

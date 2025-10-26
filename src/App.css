@@ -1,0 +1,298 @@
+/* ========== Reset e Base ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url(../public/bodyBG.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #e0e0e0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== Cabeçalho fixo ========== */
+.cabecalho-fixo {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 30px;
+  background-color: #9b1010;
+  font-size: 22px;
+  font-weight: 700;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+  color: #fff;
+  text-align: center;
+}
+
+/* ========== Layout de 3 Colunas ========== */
+.layout-tri {
+  display: flex;
+  gap: 2rem;
+  padding: 2.8rem;
+  height: calc(100vh - 50px);
+}
+
+.coluna-esquerda,
+.coluna-centro,
+.coluna-direita {
+  flex: 1;
+  background-color: #2e2e2e;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+
+/* ========== Rodapé fixo ========== */
+.rodape {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #161616;
+  text-align: center;
+  color: #ddd;
+  padding: 0.7rem 0;
+  font-size: 0.95rem;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* ========== Inputs e Textareas ========== */
+input,
+textarea {
+  width: 100%;
+  padding: 0.5rem 0.8rem;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  border-radius: 8px;
+  background-color: #2a2a2a;
+  color: #eee;
+  box-shadow: inset 0 0 5px #000;
+  border: 1px solid #ccc;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+  background-color: #363535;
+  outline: none;
+  box-shadow: 0 0 6px #4078f2;
+}
+
+input[type="time"] {
+  width: 110px;
+}
+
+input[maxlength="7"] {
+  text-transform: uppercase;
+}
+
+/* ========== Container da Placa + Botão ========== */
+.placa-container,
+.agendar-linha {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.placa-container button,
+#agendarbt {
+  background-color: #0275d8;
+  color: white;
+  width: 65px;
+  margin-top: -12px;
+  font-weight: 700;
+  font-size: 10px;
+  border: none;
+  border-radius: 8px;
+  height: 35px;
+  padding: 0 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.1s ease;
+}
+
+.placa-container button:hover:not(:disabled),
+#agendarbt:hover:not(:disabled) {
+  background-color: #025aa5;
+  transform: translateY(-1px);
+}
+
+.placa-container button:disabled,
+#agendarbt:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  color: #ccc;
+}
+
+/* ========== Ações Rápidas ========== */
+.acoes-rapidas {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.brigadista,
+#Pessoa {
+  flex: 1;
+  padding: 0.6rem 0;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  user-select: none;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+}
+
+.brigadista {
+  background-color: #b22222;
+}
+.brigadista:hover:not(:disabled) {
+  background-color: #cc3b3b;
+  transform: translateY(-1px);
+}
+
+#Pessoa {
+  background-color: #e67e22;
+}
+#Pessoa:hover:not(:disabled) {
+  background-color: #d99212;
+  transform: translateY(-1px);
+}
+
+.brigadista:disabled,
+#Pessoa:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  color: #aaa;
+}
+
+/* ========== Agendamento de Áudios ========== */
+.caixa-lista {
+  margin-top: 0;
+  width: 100%;
+  max-width: 340px;
+  height: 130px;
+  padding: 18px;
+  background-color: #231c1c;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+#listaudio,
+u {
+  color: white;
+  margin-top: -10px;
+}
+#listaudio {
+  font-size: 20px;
+  margin-bottom: 0.5rem;
+
+}
+
+/* ========== Histórico ========== */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  font-size: 0.95rem;
+  scrollbar-width: thin;
+  scrollbar-color: #666 transparent;
+}
+
+ul::-webkit-scrollbar {
+  width: 7px;
+}
+ul::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+ul li {
+  background-color: #2a2a2a;
+  margin-bottom: 0.45rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #eee;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Botões do histórico */
+ul li button,
+#limpaHistor {
+  background-color: #dc3545;
+  border: none;
+  border-radius: 6px;
+  padding: 0.2rem 0.6rem;
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+ul li button:hover:not(:disabled),
+#limpaHistor:hover:not(:disabled) {
+  background-color: #a52a2a;
+}
+ul li button:disabled,
+#limpaHistor:disabled {
+  background-color: #777;
+  cursor: not-allowed;
+}
+
+/* Botão de replay da placa */
+#placaplay {
+  background-color: #0275d8;
+  margin-left: 0.6rem;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.8rem;
+  border-radius: 8px;
+}
+#placaplay:hover:not(:disabled) {
+  background-color: #025aa5;
+}
+#placaplay:disabled {
+  background-color: #555;
+}
+
+/* ========== Responsividade ========== */
+@media (max-width: 600px) {
+  .layout-tri {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .placa-container,
+  .acoes-rapidas,
+  .agendar-linha {
+    flex-direction: column;
+  }
+  .placa-container input,
+  .placa-container button,
+  .acoes-rapidas button,
+  .agendar-linha input,
+  .agendar-linha button {
+    width: 100% !important;
+  }
+}

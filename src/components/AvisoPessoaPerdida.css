@@ -1,0 +1,104 @@
+/* ========================= */
+/* CARD PRINCIPAL */
+/* ========================= */
+.aviso-card {
+  background: #ffffff;
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  padding: 2rem;
+  width: 300px;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+/* ========================= */
+/* TÍTULO DO CARD */
+/* ========================= */
+.aviso-titulo {
+  font-size: clamp(18px, 4vw, 26px);
+  color: rgb(13, 146, 19);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* ========================= */
+/* INPUTS DO CARD */
+/* ========================= */
+.aviso-inputs {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.aviso-input {
+  padding: 10px;
+  border: solid 1px rgb(155, 155, 155);
+  border-radius: 6px;
+  outline: none;
+  width: 100%;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  box-sizing: border-box;
+}
+
+.aviso-input:focus {
+  box-shadow: 0 0 0 2px #0099ff;
+}
+
+/* ========================= */
+/* BOTÃO DO CARD */
+/* ========================= */
+.aviso-button {
+  margin-top: 2rem;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff;
+  transition: background 0.3s ease, transform 0.2s;
+  width: 100%;
+}
+
+.aviso-button:hover:not(.disabled) {
+  background: rgb(219, 17, 17);
+  transform: scale(1.03);
+}
+
+.aviso-button.disabled {
+  background: #888;
+  cursor: not-allowed;
+}
+
+/* ========================= */
+/* RESPONSIVIDADE */
+/* ========================= */
+@media (max-width: 768px) {
+  .aviso-card {
+    width: 90%;
+    height: auto;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .aviso-card {
+    width: 95%;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .aviso-titulo {
+    font-size: clamp(16px, 5vw, 22px);
+  }
+}

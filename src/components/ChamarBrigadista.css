@@ -1,0 +1,138 @@
+/* ========================= */
+/* CAIXA PRINCIPAL */
+/* ========================= */
+.brig-container {
+  width: 300px;
+  height: 700px;
+  background: #259625;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ========================= */
+/* TÍTULO */
+/* ========================= */
+.brig-title {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  margin-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+/* ========================= */
+/* GRADE DE BOTÕES */
+/* ========================= */
+.brig-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ========================= */
+/* BOTÕES */
+/* ========================= */
+.brig-btn {
+  background: rgb(48, 47, 45);
+  color: rgb(255, 255, 255);
+  border-radius: 6px;
+  padding: 2px 0;
+  font-size: 12.3px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.brig-btn:hover:not(:disabled) {
+  background: rgb(243, 50, 2);
+  transform: scale(1.05);
+  color: white;
+}
+
+.brig-btn:disabled {
+  background: rgba(0, 46, 131, 0.5);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ========================= */
+/* RESPONSIVIDADE */
+/* ========================= */
+
+/* Telas médias (tablets) */
+@media (max-width: 768px) {
+  .brig-container {
+    width: 90%;
+    height: 650px;
+    margin: 0 auto;
+  }
+
+  .brig-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+  }
+
+  .brig-title {
+    font-size: 20px;
+  }
+
+  .brig-btn {
+    font-size: 13px;
+    padding: 4px 0;
+  }
+}
+
+/* Telas pequenas (celulares) */
+@media (max-width: 480px) {
+  .brig-container {
+    width: 95%;
+    height: auto;
+    min-height: 500px;
+    padding: 8px;
+  }
+
+  .brig-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .brig-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .brig-btn {
+    font-size: 12px;
+    padding: 6px 0;
+  }
+}
+
+/* Telas muito pequenas (menores de 360px) */
+@media (max-width: 360px) {
+  .brig-container {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .brig-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .brig-title {
+    font-size: 16px;
+  }
+
+  .brig-btn {
+    font-size: 11px;
+    padding: 6px 0;
+  }
+}
