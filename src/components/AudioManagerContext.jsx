@@ -5,16 +5,16 @@ const AudioManagerContext = createContext();
 // 🛠️ FUNÇÃO AUXILIAR CORRIGIDA: Trata caminhos com ou sem a barra inicial E evita a duplicação do BASE_URL
 const getAssetUrl = (src) => {
   const baseUrl = import.meta.env.BASE_URL; // Exemplo: '/FC-Anuncia/'
-  const baseUrlWithoutSlash = baseUrl.startsWith('/') ? baseUrl.substring(1) : baseUrl; // Exemplo: 'FC-Anuncia/'
   
-  // 1. Remove a barra inicial do 'src' se existir, para evitar '//'.
+  // 1. Remove a barra inicial do 'src' se existir.
   let cleanSrc = src.startsWith('/') ? src.substring(1) : src;
   
-  // 2. CORREÇÃO CRÍTICA: Remove a duplicação do prefixo.
-  // Se o caminho já começar com 'FC-Anuncia/' (que foi passado incorretamente de outro componente), removemos para evitar '/FC-Anuncia/FC-Anuncia/...'.
-  if (cleanSrc.startsWith(baseUrlWithoutSlash)) {
-    // Remove o 'FC-Anuncia/' inicial do cleanSrc, mantendo o resto.
-    cleanSrc = cleanSrc.substring(baseUrlWithoutSlash.length);
+  // 2. CORREÇÃO CRÍTICA: Trata a duplicação de 'FC-Anuncia/FC-Anuncia/'
+  // Verifica se o src começa com a URL base sem a barra inicial ('FC-Anuncia/').
+  if (cleanSrc.startsWith(baseUrl.substring(1))) {
+    // Se sim, remove a primeira ocorrência do prefixo.
+    // O length do baseUrl é 10. O substring(1) começa no 1.
+    cleanSrc = cleanSrc.substring(baseUrl.substring(1).length);
   }
   
   // 3. Garante que o cleanSrc não comece com barra.
