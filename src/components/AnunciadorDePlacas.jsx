@@ -61,10 +61,10 @@ const AnunciadorPrincipal = () => {
 
     setIsAnunciando(true);
 
-    const prefixo = "/audiosPlaca/inicio.mp3";
-    const sufixo = "/audiosPlaca/fim.mp3";
+    const prefixo = "audiosPlaca/inicio.mp3";
+    const sufixo = "audiosPlaca/fim.mp3";
     const caracteres = placaParaReproduzir.toLowerCase().replace(/\s+/g, "");
-    const audios = caracteres.split("").map((c) => `/audiosPlaca/${c}.mp3`);
+    const audios = caracteres.split("").map((c) => `audiosPlaca/${c}.mp3`);
 
     const filaAudios = [prefixo, ...audios, sufixo, prefixo, ...audios, sufixo];
 

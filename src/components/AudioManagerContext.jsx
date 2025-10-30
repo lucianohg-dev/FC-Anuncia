@@ -2,16 +2,26 @@ import React, { createContext, useContext, useRef, useState } from "react";
 
 const AudioManagerContext = createContext();
 
-// 🛠️ FUNÇÃO AUXILIAR ESSENCIAL PARA CORRIGIR O CAMINHO NO GITHUB PAGES
-// O BASE_URL é a pasta do repositório, ex: /FC-Anuncia/
+// 🛠️ FUNÇÃO AUXILIAR CORRIGIDA: Trata caminhos com ou sem a barra inicial E evita a duplicação do BASE_URL
 const getAssetUrl = (src) => {
-  // O import.meta.env.BASE_URL é definido no seu vite.config.js
-  // E contém o valor '/FC-Anuncia/'
+  const baseUrl = import.meta.env.BASE_URL; // Exemplo: '/FC-Anuncia/'
+  const baseUrlWithoutSlash = baseUrl.startsWith('/') ? baseUrl.substring(1) : baseUrl; // Exemplo: 'FC-Anuncia/'
   
-  // O código remove a barra inicial do 'src' para evitar '//'
-  const cleanSrc = src.startsWith('/') ? src.substring(1) : src;
-
-  return `${import.meta.env.BASE_URL}${cleanSrc}`;
+  // 1. Remove a barra inicial do 'src' se existir, para evitar '//'.
+  let cleanSrc = src.startsWith('/') ? src.substring(1) : src;
+  
+  // 2. CORREÇÃO CRÍTICA: Remove a duplicação do prefixo.
+  // Se o caminho já começar com 'FC-Anuncia/' (que foi passado incorretamente de outro componente), removemos para evitar '/FC-Anuncia/FC-Anuncia/...'.
+  if (cleanSrc.startsWith(baseUrlWithoutSlash)) {
+    // Remove o 'FC-Anuncia/' inicial do cleanSrc, mantendo o resto.
+    cleanSrc = cleanSrc.substring(baseUrlWithoutSlash.length);
+  }
+  
+  // 3. Garante que o cleanSrc não comece com barra.
+  cleanSrc = cleanSrc.startsWith('/') ? cleanSrc.substring(1) : cleanSrc;
+  
+  // 4. Retorna a URL correta e limpa: /FC-Anuncia/audiosLoja/estac1.mp3
+  return `${baseUrl}${cleanSrc}`;
 };
 
 
@@ -22,7 +32,7 @@ export const AudioManagerProvider = ({ children }) => {
   const pausedTimeRef = useRef(0);
   const isAnnouncingRef = useRef(false);
 
-  // ▶️ Tocar música de fundo (corrige problema de trocar faixa)
+  // ▶️ Tocar música de fundo 
   const playAudio = (src) => {
     // Para música antiga
     if (musicRef.current) {
@@ -31,7 +41,7 @@ export const AudioManagerProvider = ({ children }) => {
     }
 
     // Cria e toca novo áudio com o caminho corrigido
-    musicRef.current = new Audio(getAssetUrl(src)); // ⬅️ CORREÇÃO APLICADA
+    musicRef.current = new Audio(getAssetUrl(src));
     musicRef.current.volume = volumeRef.current;
     musicRef.current.loop = true;
     musicRef.current.play();
@@ -87,7 +97,7 @@ export const AudioManagerProvider = ({ children }) => {
       for (const src of sources) {
         await new Promise((resolve) => {
           // Cria novo áudio com o caminho corrigido
-          const a = new Audio(getAssetUrl(src)); // ⬅️ CORREÇÃO APLICADA
+          const a = new Audio(getAssetUrl(src));
           a.onended = resolve;
           a.onerror = resolve; // ignora erro
           a.play();
