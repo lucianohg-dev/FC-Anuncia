@@ -2,25 +2,28 @@ import React, { createContext, useContext, useRef, useState } from "react";
 
 const AudioManagerContext = createContext();
 
-// 🛠️ FUNÇÃO AUXILIAR CORRIGIDA: Trata caminhos com ou sem a barra inicial E evita a duplicação do BASE_URL
+// 🛠️ FUNÇÃO AUXILIAR CORRIGIDA: Implementação robusta anti-duplicação de prefixo
 const getAssetUrl = (src) => {
-  const baseUrl = import.meta.env.BASE_URL; // Exemplo: '/FC-Anuncia/'
+  // A BASE_URL é a pasta do repositório, ex: '/FC-Anuncia/'
+  const baseUrl = import.meta.env.BASE_URL; 
   
-  // 1. Remove a barra inicial do 'src' se existir.
+  // 1. Limpa o src, removendo barras iniciais e o prefixo do repositório (FC-Anuncia/) se já estiver lá.
+  // Isso garante que o caminho a ser prefixado seja apenas 'audiosLoja/estac1.mp3', por exemplo.
+  
+  // Ex: remove '/' se o src for '/FC-Anuncia/audiosLoja/...'
   let cleanSrc = src.startsWith('/') ? src.substring(1) : src;
-  
-  // 2. CORREÇÃO CRÍTICA: Trata a duplicação de 'FC-Anuncia/FC-Anuncia/'
-  // Verifica se o src começa com a URL base sem a barra inicial ('FC-Anuncia/').
-  if (cleanSrc.startsWith(baseUrl.substring(1))) {
-    // Se sim, remove a primeira ocorrência do prefixo.
-    // O length do baseUrl é 10. O substring(1) começa no 1.
-    cleanSrc = cleanSrc.substring(baseUrl.substring(1).length);
+
+  // Ex: remove 'FC-Anuncia/' se o src for 'FC-Anuncia/audiosLoja/...'
+  const repoPrefix = baseUrl.startsWith('/') ? baseUrl.substring(1) : baseUrl;
+  if (cleanSrc.startsWith(repoPrefix)) {
+    cleanSrc = cleanSrc.substring(repoPrefix.length);
   }
   
-  // 3. Garante que o cleanSrc não comece com barra.
+  // 2. Garante que o cleanSrc não comece com barra (pois o baseUrl termina com barra).
   cleanSrc = cleanSrc.startsWith('/') ? cleanSrc.substring(1) : cleanSrc;
   
-  // 4. Retorna a URL correta e limpa: /FC-Anuncia/audiosLoja/estac1.mp3
+  // 3. Concatena a BASE_URL (ex: /FC-Anuncia/) com o caminho limpo (ex: audiosLoja/estac1.mp3)
+  // Resultado final: /FC-Anuncia/audiosLoja/estac1.mp3
   return `${baseUrl}${cleanSrc}`;
 };
 
