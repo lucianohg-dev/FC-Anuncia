@@ -10,7 +10,8 @@
   background: rgb(13, 146, 19);
   color: #fff;
   padding: 12px 20px;
-  top: 0;
+ top: 0;
+ position: absolute;
   z-index: 100;
 }
 
