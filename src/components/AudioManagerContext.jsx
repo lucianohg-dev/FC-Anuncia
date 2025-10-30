@@ -2,6 +2,19 @@ import React, { createContext, useContext, useRef, useState } from "react";
 
 const AudioManagerContext = createContext();
 
+// 🛠️ FUNÇÃO AUXILIAR ESSENCIAL PARA CORRIGIR O CAMINHO NO GITHUB PAGES
+// O BASE_URL é a pasta do repositório, ex: /FC-Anuncia/
+const getAssetUrl = (src) => {
+  // O import.meta.env.BASE_URL é definido no seu vite.config.js
+  // E contém o valor '/FC-Anuncia/'
+  
+  // O código remove a barra inicial do 'src' para evitar '//'
+  const cleanSrc = src.startsWith('/') ? src.substring(1) : src;
+
+  return `${import.meta.env.BASE_URL}${cleanSrc}`;
+};
+
+
 export const AudioManagerProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const musicRef = useRef(null);
@@ -17,8 +30,8 @@ export const AudioManagerProvider = ({ children }) => {
       musicRef.current.currentTime = 0;
     }
 
-    // Cria e toca novo áudio
-    musicRef.current = new Audio(src);
+    // Cria e toca novo áudio com o caminho corrigido
+    musicRef.current = new Audio(getAssetUrl(src)); // ⬅️ CORREÇÃO APLICADA
     musicRef.current.volume = volumeRef.current;
     musicRef.current.loop = true;
     musicRef.current.play();
@@ -73,7 +86,8 @@ export const AudioManagerProvider = ({ children }) => {
     try {
       for (const src of sources) {
         await new Promise((resolve) => {
-          const a = new Audio(src);
+          // Cria novo áudio com o caminho corrigido
+          const a = new Audio(getAssetUrl(src)); // ⬅️ CORREÇÃO APLICADA
           a.onended = resolve;
           a.onerror = resolve; // ignora erro
           a.play();

@@ -11,13 +11,9 @@ import ChamarBrigadista from "../components/ChamarBrigadista.jsx";
 import AnunciadorDePlacas from "../components/AnunciadorDePlacas.jsx";
 import AgendarAudio from "../components/AgendadorHorario.jsx";
 
-
 import AvisoPessoaPerdida from "../components/AvisoPessoaPerdida";
 import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
-
-
-
 
 export default function AnunciaFC() {
   const navigate = useNavigate();
@@ -40,9 +36,8 @@ export default function AnunciaFC() {
         <AgendarAudio />
         <AnunciadorDePlacas />
         <ChamarBrigadista />
-   
-     
-          <AvisoPessoaPerdida />
+
+        <AvisoPessoaPerdida />
       </div>
 
       <Footer />
