@@ -74,7 +74,7 @@ export default function Header() {
       
 
         <a
-          href="http://192.168.1.104:5173/remote"
+          href="/FC-Anuncia/remote"
           target="_blank"
           rel="noopener noreferrer"
           className="menu-link"

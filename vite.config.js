@@ -1,15 +1,15 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+// vite.config.js
 
-// https://vitejs.dev/config/
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
 export default defineConfig({
-    // ESSENCIAL para o deploy no GitHub Pages
-    base: '/FC-Anuncia/', 
-    
-    plugins: [react()],
-    
-    // Mantenha esta parte se for importante para o seu desenvolvimento local
-    server: {
-        host: true, 
-    },
-})
+  plugins: [react()],
+  base: '/FC-Anuncia/', // Mantém o prefixo para o deploy do GitHub Pages
+  
+  // 💥 CONFIGURAÇÃO CRÍTICA PARA ACESSO REMOTO
+  server: {
+    host: '0.0.0.0', // Faz o servidor escutar em todas as interfaces de rede
+    port: 5173      // Mantém a porta padrão ou a que você usa
+  }
+});
