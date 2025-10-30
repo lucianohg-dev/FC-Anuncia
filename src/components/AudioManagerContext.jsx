@@ -2,29 +2,23 @@ import React, { createContext, useContext, useRef, useState } from "react";
 
 const AudioManagerContext = createContext();
 
-// 🛠️ FUNÇÃO AUXILIAR CORRIGIDA: Implementação robusta anti-duplicação de prefixo
+// 🛠️ FUNÇÃO AUXILIAR CORRIGIDA: Implementação FINAL, forçando o prefixo correto
 const getAssetUrl = (src) => {
-  // A BASE_URL é a pasta do repositório, ex: '/FC-Anuncia/'
-  const baseUrl = import.meta.env.BASE_URL; 
+  // Nome do repositório/pasta base no GitHub Pages (deve ser 'FC-Anuncia/')
+  const REPO_PREFIX = "FC-Anuncia/"; 
   
-  // 1. Limpa o src, removendo barras iniciais e o prefixo do repositório (FC-Anuncia/) se já estiver lá.
-  // Isso garante que o caminho a ser prefixado seja apenas 'audiosLoja/estac1.mp3', por exemplo.
-  
-  // Ex: remove '/' se o src for '/FC-Anuncia/audiosLoja/...'
+  // 1. Remove qualquer barra inicial. Ex: '/audiosLoja/...' -> 'audiosLoja/...'
   let cleanSrc = src.startsWith('/') ? src.substring(1) : src;
 
-  // Ex: remove 'FC-Anuncia/' se o src for 'FC-Anuncia/audiosLoja/...'
-  const repoPrefix = baseUrl.startsWith('/') ? baseUrl.substring(1) : baseUrl;
-  if (cleanSrc.startsWith(repoPrefix)) {
-    cleanSrc = cleanSrc.substring(repoPrefix.length);
+  // 2. Remove o prefixo do repositório se ele JÁ estiver no caminho.
+  // Ex: 'FC-Anuncia/audiosLoja/...' -> 'audiosLoja/...'
+  if (cleanSrc.startsWith(REPO_PREFIX)) {
+    cleanSrc = cleanSrc.substring(REPO_PREFIX.length);
   }
   
-  // 2. Garante que o cleanSrc não comece com barra (pois o baseUrl termina com barra).
-  cleanSrc = cleanSrc.startsWith('/') ? cleanSrc.substring(1) : cleanSrc;
-  
-  // 3. Concatena a BASE_URL (ex: /FC-Anuncia/) com o caminho limpo (ex: audiosLoja/estac1.mp3)
-  // Resultado final: /FC-Anuncia/audiosLoja/estac1.mp3
-  return `${baseUrl}${cleanSrc}`;
+  // 3. Monta a URL final corretamente: /FC-Anuncia/audiosLoja/estac1.mp3
+  // O retorno final terá a URL começando com a barra do repositório, mas apenas uma vez.
+  return `/${REPO_PREFIX}${cleanSrc}`;
 };
 
 
