@@ -14,7 +14,7 @@
   box-sizing: border-box;
 }
 #bodyheader{
-    top: -80;
+    top: 0;
     position: absolute;
 }
 .headerh1{
