@@ -10,8 +10,8 @@ import "./AnunciaFC.CSS";
 import ChamarBrigadista from "../components/ChamarBrigadista.jsx";
 import AnunciadorDePlacas from "../components/AnunciadorDePlacas.jsx";
 import AgendarAudio from "../components/AgendadorHorario.jsx";
-import Buscard from "../components/BuscaDocard.jsx"
-import Fomularios from "../components/FormulariosCombinados.jsx"
+
+
 import AvisoPessoaPerdida from "../components/AvisoPessoaPerdida";
 import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
@@ -40,8 +40,8 @@ export default function AnunciaFC() {
         <AgendarAudio />
         <AnunciadorDePlacas />
         <ChamarBrigadista />
-       <Buscard/>
-       <Fomularios/>
+   
+     
           <AvisoPessoaPerdida />
       </div>
 
