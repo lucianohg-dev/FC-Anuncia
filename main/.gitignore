@@ -1,0 +1,13 @@
+# Diretório de Dependências Gigante
+node_modules/
+
+# Diretórios de Build e Output
+build/
+dist/
+
+# Arquivos de Configuração e Ambiente
+.env
+*.local
+
+# Arquivos de Sistema Operacional (macOS)
+.DS_Store
