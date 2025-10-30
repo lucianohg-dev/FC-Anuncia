@@ -1,21 +1,15 @@
-<<<<<<< HEAD
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-
-
-export default defineConfig({
-    plugins: [react()],
-    server: {
-        host: true, 
-    },
-});
-=======
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
-   base: '/Anuncia-FC/',
-  plugins: [react()],
+    // ESSENCIAL para o deploy no GitHub Pages
+    base: '/FC-Anuncia/', 
+    
+    plugins: [react()],
+    
+    // Mantenha esta parte se for importante para o seu desenvolvimento local
+    server: {
+        host: true, 
+    },
 })
->>>>>>> 62a59e325edfe376931a8777da984985a91909aa

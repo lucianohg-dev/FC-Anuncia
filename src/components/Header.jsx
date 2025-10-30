@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Volume2, Menu, X } from "lucide-react";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import MidiaPlayer from "./CompactMusicPlayer";
+
 import "../components/Header.css";
 
 export default function Header() {
@@ -71,9 +71,7 @@ export default function Header() {
       </div>
 
       <nav className={`menu-dropdown ${menuOpen ? "open" : ""}`}>
-        <button onClick={togglePlayer} className="menu-link">
-          🎵 Abrir Player
-        </button>
+      
 
         <a
           href="http://192.168.1.104:5173/remote"

@@ -4,6 +4,7 @@
   "description": "Aplicativo React + Firebase empacotado com Electron",
   "private": true,
   "type": "module",
+  "homepage": "https://lucianohg-dev.github.io/FC-Anuncia",  
   "main": "public/electron-main.js",
   "scripts": {
     "dev": "vite",
