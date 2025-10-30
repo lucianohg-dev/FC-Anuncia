@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Volume2, Menu, X } from "lucide-react";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
@@ -73,14 +73,15 @@ export default function Header() {
       <nav className={`menu-dropdown ${menuOpen ? "open" : ""}`}>
       
 
-        <a
-          href="/FC-Anuncia/remote"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="menu-link"
-        >
-          Página Remota
-        </a>
+    // Sua sintaxe corrigida para remover a duplicação de className
+<Link
+  to="/remote" 
+  className="menu-link" // <--- APENAS UMA VEZ
+  target="_blank" // <--- ATENÇÃO: Pode causar warnings no console
+  rel="noopener noreferrer"
+>
+  Página Remota
+</Link>
 
         <button onClick={handleLogout} className="menu-link">
           Sair
