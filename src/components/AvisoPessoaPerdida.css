@@ -65,7 +65,8 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  color: #fff;
+  color: #ffffff;
+  background-color:  rgb(13, 146, 19);
   transition: background 0.3s ease, transform 0.2s;
   width: 100%;
 }

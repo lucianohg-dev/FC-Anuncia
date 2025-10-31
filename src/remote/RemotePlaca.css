@@ -43,7 +43,7 @@
 }
 
 .placa-title {
-margin-left: 150px;
+  margin-left: 150px;
   font-size: 1.4rem;
   color: rgb(13, 146, 19);
 }
@@ -114,7 +114,7 @@ margin-left: 150px;
 }
 
 .placa-item {
-  background: rgba(0, 0, 0, 0.05);
+
   margin-bottom: 8px;
   padding: 8px;
   border-radius: 6px;
@@ -175,4 +175,67 @@ margin-left: 150px;
     width: 100%;
     justify-content: flex-end;
   }
+}
+@media (max-width: 390px) {
+  .placa-title {
+  margin-left: 60px;
+  font-size: 1.2rem;
+  color: rgb(13, 146, 19);
+}
+.placa-time{
+  margin-top: 14px;
+ 
+}
+.placa-text{
+top: 0;
+ font-size: 1.0rem;
+ gap: 2px;
+}
+ .placa-wrapper {
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  .placa-input-box {
+    flex-direction: column;
+  }
+
+  .placa-btn-send {
+    width: 100%;
+  }
+
+  .placa-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0px;
+  
+  }
+
+  .placa-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .placa-btn-play {
+  background: rgb(13, 146, 19);
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+
+}
+#placa-text{
+    color: rgb(0, 0, 0);
+}
+.placa-btn-delete {
+  background: #c01111;
+  border: none;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+
+}
+
+
 }

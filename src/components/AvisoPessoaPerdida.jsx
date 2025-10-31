@@ -19,7 +19,7 @@ export default function AvisoPessoaPerdida() {
 
     try {
       lowerVolumeTemporarily();
-      const audioBase = new Audio("/audiosPlaca/reencontro.mp3");
+      const audioBase = new Audio(`${import.meta.env.BASE_URL}audiosPlaca/reencontro.mp3`);
       await audioBase.play();
 
       audioBase.onended = async () => {
@@ -64,35 +64,33 @@ export default function AvisoPessoaPerdida() {
   };
 
   return (
-   
-      <div className="aviso-card">
-        <h2 className="aviso-titulo">Aviso de Pessoa Perdida</h2>
+    <div className="aviso-card">
+      <h2 className="aviso-titulo">Aviso de Pessoa Perdida</h2>
 
-        <div className="aviso-inputs">
-          <input
-            type="text"
-            placeholder="Nome da pessoa perdida"
-            value={pessoaPerdida}
-            onChange={(e) => setPessoaPerdida(e.target.value)}
-            className="aviso-input"
-          />
-          <input
-            type="text"
-            placeholder="Quem está esperando"
-            value={pessoaEsperando}
-            onChange={(e) => setPessoaEsperando(e.target.value)}
-            className="aviso-input"
-          />
-        </div>
-
-        <button
-          onClick={anunciar}
-          disabled={isPlaying}
-          className={`aviso-button ${isPlaying ? "disabled" : ""}`}
-        >
-          {isPlaying ? "Anunciando..." : "Anunciar"}
-        </button>
+      <div className="aviso-inputs">
+        <input
+          type="text"
+          placeholder="Nome da pessoa perdida"
+          value={pessoaPerdida}
+          onChange={(e) => setPessoaPerdida(e.target.value)}
+          className="aviso-input"
+        />
+        <input
+          type="text"
+          placeholder="Quem está esperando"
+          value={pessoaEsperando}
+          onChange={(e) => setPessoaEsperando(e.target.value)}
+          className="aviso-input"
+        />
       </div>
-    
+
+      <button
+        onClick={anunciar}
+        disabled={isPlaying}
+        className={`aviso-button ${isPlaying ? "disabled" : ""}`}
+      >
+        {isPlaying ? "Anunciando..." : "Anunciar"}
+      </button>
+    </div>
   );
 }

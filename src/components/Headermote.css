@@ -222,3 +222,31 @@
     font-size: 0.85rem;
   }
 }
+@media (max-width: 390px) {
+
+.remote-header-title {
+
+  margin-top: 10px;
+position: absolute;
+   margin-left: 120px;
+    font-size: 1.4rem;
+  }
+
+  .remote-user-info {
+    left: 30px;
+   
+  }
+
+  .remote-user-photo {
+    width: 28px;
+    height: 28px;
+    left: 10px;
+  }
+
+  .remote-user-name {
+    font-size: 0.85rem;
+ 
+    left: 45px;
+  }
+
+}

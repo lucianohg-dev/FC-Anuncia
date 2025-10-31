@@ -5,6 +5,9 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 import "../components/Header.css";
 
+// Nota: O componente MidiaPlayer não está definido neste arquivo,
+// mas a lógica para mostrá-lo (showPlayer) foi mantida para integridade.
+
 export default function Header() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -56,7 +59,6 @@ export default function Header() {
         <MidiaPlayer onClose={() => setShowPlayer(false)} />
       )}
 
-    
       <h1 className="headerh1">Anuncia-FC</h1>
 
       {userName && (
@@ -71,17 +73,17 @@ export default function Header() {
       </div>
 
       <nav className={`menu-dropdown ${menuOpen ? "open" : ""}`}>
-      
-
-    // Sua sintaxe corrigida para remover a duplicação de className
-<Link
-  to="/remote" 
-  className="menu-link" // <--- APENAS UMA VEZ
-  target="_blank" // <--- ATENÇÃO: Pode causar warnings no console
-  rel="noopener noreferrer"
->
-  Página Remota
-</Link>
+        {/*
+          O link para a página remota foi removido daqui:
+          <Link
+            to="/remote" 
+            className="menu-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Página Remota
+          </Link>
+        */}
 
         <button onClick={handleLogout} className="menu-link">
           Sair
@@ -90,3 +92,4 @@ export default function Header() {
     </header>
   );
 }
+
