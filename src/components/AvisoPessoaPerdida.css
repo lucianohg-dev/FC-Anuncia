@@ -67,7 +67,6 @@
   cursor: pointer;
   color: #ffffff;
   background-color:  rgb(13, 146, 19);
-  color:black;
   transition: background 0.3s ease, transform 0.2s;
   width: 100%;
 }
