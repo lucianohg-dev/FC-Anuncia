@@ -78,24 +78,29 @@ export const AudioManagerProvider = ({ children }) => {
                 await new Promise((resolve) => {
                     const a = new Audio(getAssetUrl(src));
                     
-                    // Garante que as funções onended/onerror existem
-                    const handleEnd = () => {
+                    // 🆕 Função única para resolver o áudio e avançar o loop
+                    const handleComplete = () => {
                       a.onended = null;
                       a.onerror = null;
-                      resolve();
+                      resolve(); // Resolve para que o for loop possa ir para o próximo 'src'
                     };
                     
-                    a.onended = handleEnd;
+                    a.onended = handleComplete;
+
                     a.onerror = (e) => {
                       console.error(`Erro ao carregar ou reproduzir áudio (${src}):`, e);
-                      handleEnd(); // Resolve mesmo em caso de erro para ir ao próximo áudio
+                      handleComplete(); // Avança, mesmo em caso de erro de carregamento
                     };
                     
-                    // 🚨 Tenta reproduzir. O 'catch' aqui previne o erro original
-                    a.play().catch(e => {
-                      console.error(`Falha ao iniciar play() para ${src}:`, e);
-                      handleEnd();
-                    });
+                    // 🚨 Tenta reproduzir. O .catch() aqui trata restrições de autoplay/permissão.
+                    a.play()
+                      .then(() => {
+                        // Sucesso na chamada de play(). O a.onended irá resolver o loop.
+                      })
+                      .catch(e => {
+                        console.error(`Falha ao iniciar play() para ${src}:`, e);
+                        handleComplete(); // Falhou ao iniciar, então avança para o próximo áudio
+                      });
                 });
             }
         } catch (error) {
