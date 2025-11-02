@@ -68,44 +68,55 @@ export const AudioManagerProvider = ({ children }) => {
     };
     
     // 📢 Reproduzir sequência de áudios (manual ou agendado)
-// 📢 Reproduzir sequência de áudios (manual ou agendado)
-    const playAudioSequence = async (sources) => {
-        // 1. Solicita o bloqueio de anúncios
+const playAudioSequence = async (sources) => {
         const lock = requestAnnouncement();
         if (!lock.success) return;
 
-        try {
-            for (const src of sources) {
-                const a = new Audio(getAssetUrl(src));
-                
-                // 💡 CRÍTICO: Tenta reproduzir e espera a Promessa de play() ou captura o erro
-                try {
-                    await a.play();
-                    
-                    // Se o play() for bem-sucedido, esperamos o evento 'ended'
-                    await new Promise((resolve) => {
-                        a.onended = () => {
-                            a.onended = null;
-                            resolve();
-                        };
-                    });
-
-                } catch (e) {
-                    // ⚠️ Isso captura falhas de autoplay ou erros de Promessa
-                    console.error(`Falha ou erro no a.play() para ${src}:`, e);
-                    
-                    // Se falhar (autoplay, etc.), ainda precisamos esperar o tempo do áudio
-                    // para manter a sincronia antes de passar para o próximo (o que seria o áudio em inglês).
-                    // Vamos tentar resolver a Promise depois de um tempo de fallback (ex: 3 segundos)
-                    // se o onended não for disparado.
-                    await new Promise(resolve => setTimeout(resolve, 3000));
-                }
-
+        // 🆕 1. FUNÇÃO RECURSIVA PARA TOCAR CADA ÁUDIO NA ORDEM
+        const playNextAudio = (index) => {
+            if (index >= sources.length) {
+                // Fim da sequência
+                lock.unlock(); 
+                return;
             }
+
+            const src = sources[index];
+            const a = new Audio(getAssetUrl(src));
+
+            // Função que avança para o próximo ou desbloqueia
+            const handleComplete = () => {
+                a.onended = null;
+                a.onerror = null;
+                playNextAudio(index + 1); // Chama a próxima iteração
+            };
+
+            a.onended = handleComplete;
+
+            a.onerror = (e) => {
+                console.error(`Erro ao carregar ou reproduzir áudio (${src}):`, e);
+                handleComplete(); // Avança mesmo em erro
+            };
+
+            // 2. INÍCIO DA REPRODUÇÃO (Sincronizada)
+            // Usamos .play() e .catch() aqui, mas sem um 'await' bloqueando o fluxo principal
+            a.play().catch(e => {
+                console.error(`Falha no play() (restrição browser) para ${src}:`, e);
+                // Se o play falhar (autoplay), avançamos para o próximo áudio após 3 segundos
+                setTimeout(handleComplete, 3000); 
+            });
+        };
+
+        try {
+            // 3. INICIA A SEQUÊNCIA
+            playNextAudio(0);
+            
+            // ⚠️ NOTA: NÃO PODEMOS USAR AWAIT AQUI SE USARMOS playNextAudio().
+            // A função playAudioSequence não retorna Promise e nem espera a conclusão.
+            // Ela apenas inicia o processo assíncrono.
+
         } catch (error) {
-            console.error("Erro geral na sequência de áudio:", error);
-        } finally {
-            lock.unlock(); // Desbloqueia o sistema
+            console.error("Erro ao iniciar sequência:", error);
+            lock.unlock(); // Garante o desbloqueio em caso de erro inicial
         }
     };
 
