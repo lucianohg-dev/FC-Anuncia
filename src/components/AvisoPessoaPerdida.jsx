@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-// 💡 Importa getAssetUrl para resolver o caminho do áudio base corretamente
-import { useAudioManager, getAssetUrl } from "./AudioManagerContext"; 
+// 💡 Importa as funções necessárias do contexto
+import { useAudioManager, getAssetUrl } from "./AudioManagerContext"; 
 import "./AvisoPessoaPerdida.css";
 
 export default function AvisoPessoaPerdida() {
     const [pessoaPerdida, setPessoaPerdida] = useState("");
     const [pessoaEsperando, setPessoaEsperando] = useState("");
-    const [isPlaying, setIsPlaying] = useState(false);
+    // Estado local para o spinner do botão deste componente
+    const [isPlayingLocal, setIsPlayingLocal] = useState(false); 
 
-    const { lowerVolumeTemporarily, restoreVolume } = useAudioManager();
+    // 🔑 Importa o estado global (isAnnouncing) e a função de controle
+    const { isAnnouncing, requestAnnouncement } = useAudioManager();
 
     const anunciar = async () => {
         if (!pessoaPerdida.trim() || !pessoaEsperando.trim()) {
@@ -16,27 +18,33 @@ export default function AvisoPessoaPerdida() {
             return;
         }
 
-        setIsPlaying(true);
+        // 🚨 PASSO CRÍTICO 1: Tenta iniciar o anúncio e bloquear outros setores
+        const announcementControl = requestAnnouncement();
+        
+        // Se a requisição foi bloqueada (success: false), sai e avisa
+        if (!announcementControl.success) {
+            alert(announcementControl.message);
+            return;
+        }
+
+        const { unlock } = announcementControl; // Função para liberar o sistema
+        setIsPlayingLocal(true); 
 
         try {
-            // 🔉 1. ABAIXA O VOLUME DA MÚSICA DE FUNDO
-            lowerVolumeTemporarily(); 
+            // O volume de fundo já foi abaixado por requestAnnouncement()
             
-            // 🎼 2. Carrega o áudio base usando o caminho corrigido
-            // 💡 Substituído: import.meta.env.BASE_URL por getAssetUrl
-            const audioBase = new Audio(getAssetUrl("audiosPlaca/reencontro.mp3")); 
+            // 🎼 1. Carrega o áudio base (Reencontro)
+            const audioBase = new Audio(getAssetUrl("audiosPlaca/reencontro.mp3")); 
             await audioBase.play();
 
-            audioBase.onended = async () => {
+            audioBase.onended = () => {
                 const texto = `Atenção! ${pessoaPerdida}, favor se dirigir à lista de casamentos na entrada da loja. ${pessoaEsperando} está aguardando você aqui.`;
                 const utterance = new SpeechSynthesisUtterance(texto);
                 utterance.lang = "pt-BR";
                 utterance.rate = 1;
-                utterance.pitch = 1;
-                utterance.volume = 1;
+                // ... (Configurações de pitch, volume e lógica de seleção de voz aqui) ...
 
                 const allVoices = window.speechSynthesis.getVoices();
-                // Lógica de seleção de voz
                 const vozMasculina =
                     allVoices.find(
                         (v) =>
@@ -49,29 +57,32 @@ export default function AvisoPessoaPerdida() {
 
                 if (vozMasculina) utterance.voice = vozMasculina;
 
-                // Lógica para garantir que a voz seja carregada antes de falar
                 if (speechSynthesis.getVoices().length === 0) {
                     speechSynthesis.onvoiceschanged = () => speechSynthesis.speak(utterance);
                 } else {
                     speechSynthesis.speak(utterance);
                 }
 
-                // 🔊 3. RESTAURA O VOLUME DEPOIS QUE O TEXT-TO-SPEECH TERMINAR
+                // 🚨 PASSO CRÍTICO 2: RESTAURA O VOLUME E DESBLOQUEIA O SISTEMA
                 utterance.onend = () => {
-                    restoreVolume();
-                    setIsPlaying(false);
+                    unlock(); // Desbloqueia o sistema globalmente (isAnnouncing = false) e restaura volume
+                    setIsPlayingLocal(false);
                     setPessoaPerdida("");
                     setPessoaEsperando("");
                 };
             };
         } catch (error) {
             console.error("Erro ao anunciar:", error);
-            // 💡 GARANTIA: Restaura o volume mesmo em caso de erro
-            restoreVolume(); 
-            setIsPlaying(false);
+            // 💡 GARANTIA: Se ocorrer um erro, desbloqueia o sistema imediatamente
+            unlock(); 
+            setIsPlayingLocal(false);
         }
     };
 
+    // 🔑 DESABILITAÇÃO: O botão é desabilitado se este componente está tocando (isPlayingLocal)
+    // OU se qualquer outro setor estiver anunciando (isAnnouncing)
+    const isDisabled = isAnnouncing || isPlayingLocal; 
+    
     return (
         <div className="aviso-card">
             <h2 className="aviso-titulo">Aviso de Pessoa Perdida</h2>
@@ -83,6 +94,7 @@ export default function AvisoPessoaPerdida() {
                     value={pessoaPerdida}
                     onChange={(e) => setPessoaPerdida(e.target.value)}
                     className="aviso-input"
+                    disabled={isDisabled} // Desabilita input durante o anúncio
                 />
                 <input
                     type="text"
@@ -90,15 +102,16 @@ export default function AvisoPessoaPerdida() {
                     value={pessoaEsperando}
                     onChange={(e) => setPessoaEsperando(e.target.value)}
                     className="aviso-input"
+                    disabled={isDisabled} // Desabilita input durante o anúncio
                 />
             </div>
 
             <button
                 onClick={anunciar}
-                disabled={isPlaying}
-                className={`aviso-button ${isPlaying ? "disabled" : ""}`}
+                disabled={isDisabled}
+                className={`aviso-button ${isDisabled ? "disabled" : ""}`}
             >
-                {isPlaying ? "Anunciando..." : "Anunciar"}
+                {isDisabled ? "Aguarde..." : "Anunciar"}
             </button>
         </div>
     );

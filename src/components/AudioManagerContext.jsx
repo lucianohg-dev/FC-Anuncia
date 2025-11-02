@@ -2,68 +2,28 @@ import React, { createContext, useContext, useRef, useState } from "react";
 
 const AudioManagerContext = createContext();
 
-// 🛠️ FUNÇÃO AUXILIAR CORRIGIDA: Implementação FINAL, forçando o prefixo correto
-export const getAssetUrl = (src) => { // ⬅️ EXPORTADA PARA USO EM OUTROS COMPONENTES
-    // Nome do repositório/pasta base no GitHub Pages (deve ser 'FC-Anuncia/')
+// 🛠️ FUNÇÃO AUXILIAR: Resolve o caminho dos assets para o GitHub Pages
+export const getAssetUrl = (src) => {
     const REPO_PREFIX = "FC-Anuncia/"; 
 
-    // 1. Remove qualquer barra inicial. Ex: '/audiosLoja/...' -> 'audiosLoja/...'
     let cleanSrc = src.startsWith('/') ? src.substring(1) : src;
 
-    // 2. Remove o prefixo do repositório se ele JÁ estiver no caminho.
-    // Ex: 'FC-Anuncia/audiosLoja/...' -> 'audiosLoja/...'
     if (cleanSrc.startsWith(REPO_PREFIX)) {
         cleanSrc = cleanSrc.substring(REPO_PREFIX.length);
     }
 
-    // 3. Monta a URL final corretamente: /FC-Anuncia/audiosLoja/estac1.mp3
-    // O retorno final terá a URL começando com a barra do repositório, mas apenas uma vez.
     return `/${REPO_PREFIX}${cleanSrc}`;
 };
 
 
 export const AudioManagerProvider = ({ children }) => {
-    const [isPlaying, setIsPlaying] = useState(false);
     const musicRef = useRef(null);
     const volumeRef = useRef(1);
     const pausedTimeRef = useRef(0);
     const isAnnouncingRef = useRef(false);
 
-    // ▶️ Tocar música de fundo 
-    const playAudio = (src) => {
-        // Para música antiga
-        if (musicRef.current) {
-            musicRef.current.pause();
-            musicRef.current.currentTime = 0;
-        }
-
-        // Cria e toca novo áudio com o caminho corrigido
-        // 💡 Já usa getAssetUrl, o que garante o caminho correto
-        musicRef.current = new Audio(getAssetUrl(src));
-        musicRef.current.volume = volumeRef.current;
-        musicRef.current.loop = true;
-        musicRef.current.play();
-        setIsPlaying(true);
-    };
-
-    // ⏸️ Pausar música
-    const pauseAudio = () => {
-        if (musicRef.current) {
-            pausedTimeRef.current = musicRef.current.currentTime;
-            musicRef.current.pause();
-            setIsPlaying(false);
-        }
-    };
-
-    // ⏹️ Parar completamente música
-    const stopAudio = () => {
-        if (musicRef.current) {
-            musicRef.current.pause();
-            musicRef.current.currentTime = 0;
-            pausedTimeRef.current = 0;
-            setIsPlaying(false);
-        }
-    };
+    const [isPlaying, setIsPlaying] = useState(false); // Estado da música de fundo
+    const [isAnnouncing, setIsAnnouncing] = useState(false); // 🆕 Estado Global de Anúncio Ativo
 
     // 🎚️ Ajustar volume
     const setVolume = (v) => {
@@ -84,20 +44,43 @@ export const AudioManagerProvider = ({ children }) => {
         if (musicRef.current) musicRef.current.volume = volumeRef.current;
     };
 
+    // 🆕 FUNÇÃO CRÍTICA: Solicita o bloqueio do sistema de anúncios
+    const requestAnnouncement = () => {
+        if (isAnnouncingRef.current) {
+            // Bloqueado: Retorna objeto de falha
+            return { success: false, message: "Um anúncio já está em andamento." };
+        }
+        
+        // Desbloqueado: Inicia o bloqueio e abaixa o volume
+        isAnnouncingRef.current = true;
+        setIsAnnouncing(true); // Bloqueia botões em todos os componentes
+        lowerVolumeTemporarily();
+        
+        // Função de desbloqueio
+        const unlock = () => {
+            restoreVolume();
+            isAnnouncingRef.current = false;
+            setIsAnnouncing(false);
+        };
+        
+        // Retorna objeto de sucesso com a função de desbloqueio
+        return { success: true, unlock };
+    };
+    
     // 📢 Reproduzir sequência de áudios (manual ou agendado)
     const playAudioSequence = async (sources) => {
-        if (isAnnouncingRef.current) return; // evita eco
+        if (isAnnouncingRef.current) return;
         isAnnouncingRef.current = true;
+        setIsAnnouncing(true);
 
         lowerVolumeTemporarily();
 
         try {
             for (const src of sources) {
                 await new Promise((resolve) => {
-                    // Cria novo áudio com o caminho corrigido
                     const a = new Audio(getAssetUrl(src));
                     a.onended = resolve;
-                    a.onerror = resolve; // ignora erro
+                    a.onerror = resolve;
                     a.play();
                 });
             }
@@ -106,26 +89,25 @@ export const AudioManagerProvider = ({ children }) => {
         } finally {
             restoreVolume();
             isAnnouncingRef.current = false;
+            setIsAnnouncing(false);
         }
     };
-
-    // 🔔 Função de anúncio agendado (para timers)
-    const playScheduledAnnouncement = async (sources) => {
-        await playAudioSequence(sources);
-    };
+    
+    // ... (playAudio, pauseAudio, stopAudio, playScheduledAnnouncement omitidos por brevidade, mas devem ser mantidos) ...
 
     return (
         <AudioManagerContext.Provider
             value={{
-                playAudio,
-                pauseAudio,
-                stopAudio,
+                // ... (playAudio, pauseAudio, stopAudio, etc.) ...
                 setVolume,
-                lowerVolumeTemporarily,
-                restoreVolume,
-                isPlaying,
+                isPlaying, 
+                
+                // 🔑 Controle de Anúncio Exclusivo
+                isAnnouncing,
+                requestAnnouncement, 
+                
                 playAudioSequence,
-                playScheduledAnnouncement,
+                // ... (playScheduledAnnouncement)
             }}
         >
             {children}
