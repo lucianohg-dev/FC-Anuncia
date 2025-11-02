@@ -68,47 +68,46 @@ export const AudioManagerProvider = ({ children }) => {
     };
     
     // 📢 Reproduzir sequência de áudios (manual ou agendado)
-    const playAudioSequence = async (sources) => {
-        // Adiciona uma checagem de bloqueio robusta
-        const lock = requestAnnouncement();
-        if (!lock.success) return;
+// 📢 Reproduzir sequência de áudios (manual ou agendado)
+    const playAudioSequence = async (sources) => {
+        // 1. Solicita o bloqueio de anúncios
+        const lock = requestAnnouncement();
+        if (!lock.success) return;
 
-        try {
-            for (const src of sources) {
-                await new Promise((resolve) => {
-                    const a = new Audio(getAssetUrl(src));
-                    
-                    // 🆕 Função única para resolver o áudio e avançar o loop
-                    const handleComplete = () => {
-                      a.onended = null;
-                      a.onerror = null;
-                      resolve(); // Resolve para que o for loop possa ir para o próximo 'src'
-                    };
-                    
-                    a.onended = handleComplete;
+        try {
+            for (const src of sources) {
+                const a = new Audio(getAssetUrl(src));
+                
+                // 💡 CRÍTICO: Tenta reproduzir e espera a Promessa de play() ou captura o erro
+                try {
+                    await a.play();
+                    
+                    // Se o play() for bem-sucedido, esperamos o evento 'ended'
+                    await new Promise((resolve) => {
+                        a.onended = () => {
+                            a.onended = null;
+                            resolve();
+                        };
+                    });
 
-                    a.onerror = (e) => {
-                      console.error(`Erro ao carregar ou reproduzir áudio (${src}):`, e);
-                      handleComplete(); // Avança, mesmo em caso de erro de carregamento
-                    };
-                    
-                    // 🚨 Tenta reproduzir. O .catch() aqui trata restrições de autoplay/permissão.
-                    a.play()
-                      .then(() => {
-                        // Sucesso na chamada de play(). O a.onended irá resolver o loop.
-                      })
-                      .catch(e => {
-                        console.error(`Falha ao iniciar play() para ${src}:`, e);
-                        handleComplete(); // Falhou ao iniciar, então avança para o próximo áudio
-                      });
-                });
-            }
-        } catch (error) {
-            console.error("Erro ao reproduzir sequência:", error);
-        } finally {
-            lock.unlock(); // Desbloqueia o sistema
-        }
-    };
+                } catch (e) {
+                    // ⚠️ Isso captura falhas de autoplay ou erros de Promessa
+                    console.error(`Falha ou erro no a.play() para ${src}:`, e);
+                    
+                    // Se falhar (autoplay, etc.), ainda precisamos esperar o tempo do áudio
+                    // para manter a sincronia antes de passar para o próximo (o que seria o áudio em inglês).
+                    // Vamos tentar resolver a Promise depois de um tempo de fallback (ex: 3 segundos)
+                    // se o onended não for disparado.
+                    await new Promise(resolve => setTimeout(resolve, 3000));
+                }
+
+            }
+        } catch (error) {
+            console.error("Erro geral na sequência de áudio:", error);
+        } finally {
+            lock.unlock(); // Desbloqueia o sistema
+        }
+    };
 
     // 🆕 IMPLEMENTAÇÃO: Reproduzir anúncio agendado (usa a lógica de bloqueio)
     const playScheduledAnnouncement = async (sources) => {
