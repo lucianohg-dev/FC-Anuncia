@@ -12,15 +12,15 @@ const getHorariosAutomaticos = () => {
   // 1. Horários Automáticos Padrão (Segunda a Sábado: 1, 2, 3, 4, 5, 6)
   let horarios = [
     { hora: "08:00", tipo: "abertura" },
-    { hora: "19:40", tipo: "fechamento" },
-    { hora: "19:52", tipo: "fechamento" },
-    { hora: "19:55", tipo: "fechamento" },
-    { hora: "20:00", tipo: "fechamento" },
-    { hora: "20:02", tipo: "fechamento" },
-    { hora: "20:04", tipo: "fechamento" },
-    { hora: "20:06", tipo: "fechamento" },
-    { hora: "20:08", tipo: "fechamento" },
-    { hora: "20:10", tipo: "fechamento" },
+    { hora: "20:40", tipo: "fechamento" },
+    { hora: "20:50", tipo: "fechamento" },
+    { hora: "20:55", tipo: "fechamento" },
+    { hora: "21:00", tipo: "fechamento" },
+    { hora: "21:02", tipo: "fechamento" },
+    { hora: "21:04", tipo: "fechamento" },
+    { hora: "21:06", tipo: "fechamento" },
+    { hora: "21:08", tipo: "fechamento" },
+    { hora: "21:10", tipo: "fechamento" },
   ];
 
   // 2. Horários Específicos para Domingo (0)
